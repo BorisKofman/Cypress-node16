@@ -1,5 +1,6 @@
 FROM cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
 
+
 #ENV
 ENV DEBIAN_FRONTEND noninteractive
 # a few environment variables to make NPM installs easier
@@ -12,6 +13,8 @@ ENV npm_config_unsafe_perm=true
 # "fake" dbus address to prevent errors
 # https://github.com/SeleniumHQ/docker-selenium/issues/87
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
+
+USER root
 
 RUN apt update -y && \
     apt install -y \
