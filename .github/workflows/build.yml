@@ -30,13 +30,3 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           docker buildx imagetools create -t ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1 cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
-          # docker buildx imagetools create -t ghcr.io/boriskofman/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1 cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
-
-      -
-        name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          platforms: linux/arm64
-          file: images/arm.dockerfile
-          push: true
-          tags: ghcr.io/boriskofman/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
