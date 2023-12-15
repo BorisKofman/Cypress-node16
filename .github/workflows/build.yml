@@ -12,32 +12,23 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build the hello-docker Docker image
+      # - name: Build the hello-docker Docker image
+      #   run: |
+      #     docker pull cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
+      #     docker tag cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1 ghcr.io/boriskofman/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
+      #     docker push ghcr.io/boriskofman/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
+      #     docker pull cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      #     docker tag cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1 ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      #     docker push ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and Push Docker Image
         run: |
-          docker pull cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
-          docker tag cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1 ghcr.io/boriskofman/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
-          docker push ghcr.io/boriskofman/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
-          # docker pull cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
-          # docker tag cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1 ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
-          # docker push ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
-      # -
-      #   name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-      # -
-      #   name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v3
-      # # -
-      # #   name: Login to Docker Hub
-      # #   uses: docker/login-action@v3
-      # #   with:
-      # #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      # #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # -
-      #   name: Build and push
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     push: true
-      #     platforms: |
-      #       linux/amd64
-      #     file: images/Dockerfile
-      #     tags: ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+          docker buildx create --use
+          docker buildx inspect --bootstrap
+          docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1 cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+          docker push ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
