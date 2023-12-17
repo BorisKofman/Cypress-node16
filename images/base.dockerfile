@@ -1,19 +1,23 @@
+# Use a smaller base image
 FROM cypress/base:18.16.1
 
-RUN apk update && \
-    apk add --no-cache \
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
         openssl \
         ca-certificates \
         curl \
         unzip \
-        dbus-x11 \
         libu2f-udev \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean \
+    && rm -rf /var/cache/apt/archives/*
 
-RUN npm install -g cpu-features
-
-# Install ChromeDriver
-RUN apk add --no-cache chromium-chromedriver
+# Install Google Chrome
+RUN curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome-archive-keyring.gpg \
+    && echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome-archive-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update && apt-get install -y --no-install-recommends google-chrome-stable dbus-x11 \
+    && rm -rf /var/lib/apt/lists/*
 
 # "fake" dbus address to prevent errors
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
