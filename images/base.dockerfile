@@ -3,11 +3,9 @@ FROM cypress/base:18.16.1
 
 # Install openssl, ca-certificates, curl, unzip, dbus-x11, cmake, build-essential, and git
 RUN apt-get update && \
-    apt-get install -y openssl ca-certificates curl unzip dbus-x11 cmake build-essential git && \
+    apt-get install -y openssl ca-certificates curl unzip dbus-x11 libu2f-udev  && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Node.js package 'cpu-features' globally
-RUN npm install -g cpu-features
 
 # Install Google Chrome
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
