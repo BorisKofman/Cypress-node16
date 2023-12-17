@@ -8,6 +8,7 @@ RUN apt-get update && \
         ca-certificates \
         curl \
         unzip \
+        dbus-x11 \
         libu2f-udev \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean \
@@ -16,7 +17,7 @@ RUN apt-get update && \
 # Install Google Chrome
 RUN curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-chrome-archive-keyring.gpg \
     && echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome-archive-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update && apt-get install -y --no-install-recommends google-chrome-stable dbus-x11 \
+    && apt-get update && apt-get install -y --no-install-recommends google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
 # "fake" dbus address to prevent errors
