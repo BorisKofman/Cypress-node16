@@ -29,4 +29,5 @@ jobs:
         with:
           push: true
           file: images/base.dockerfile
+          platforms: linux/amd64
           tags: ghcr.io/boriskofman/base:18.16.1
