@@ -24,10 +24,18 @@ jobs:
           docker buildx imagetools create -t ghcr.io/boriskofman/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1 cypress/browsers:node-16.18.1-chrome-110.0.5481.96-1-ff-109.0-edge-110.0.1587.41-1
           docker buildx imagetools create -t ghcr.io/boriskofman/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1 cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
       -
-        name: Build and push
+        name: Build and push base18 
         uses: docker/build-push-action@v5
         with:
           push: true
-          file: images/base.dockerfile
+          file: images/base-18.dockerfile
           platforms: linux/amd64
           tags: ghcr.io/boriskofman/base:18.16.1
+      -
+        name: Build and push base 20
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          file: images/base-20.dockerfile
+          platforms: linux/amd64
+          tags: ghcr.io/boriskofman/base:20.9.0
