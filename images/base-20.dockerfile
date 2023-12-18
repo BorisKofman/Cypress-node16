@@ -1,5 +1,5 @@
 # Use a smaller base image
-FROM cypress/base:base:20.9.0
+FROM cypress/base:20.9.0
 
 # Install required packages
 RUN apt-get update && \
