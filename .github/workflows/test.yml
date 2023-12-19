@@ -28,4 +28,4 @@ jobs:
           images: secful/dashboard
           tags: |
             type=ref,event=branch
-            type=raw,value={{branch}}-${{env.BUILD_DATE}}-{{sha}}
+            type=raw,value={{branch}}${{env.BUILD_DATE}}-{{sha}}
