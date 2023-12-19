@@ -25,5 +25,5 @@ jobs:
         with:
           images: secful/dashboard
           tags: |
-            type=ref,event=branch-type=sha,format=short,prefix=
+            type=ref,event=branch,-,type=sha,format=short,prefix=
             
