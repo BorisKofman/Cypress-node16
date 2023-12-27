@@ -23,7 +23,7 @@ RUN export RUNNER_ARCH=${TARGETARCH} \
     && curl -fLo docker.tgz https://download.docker.com/${TARGETOS}/static/stable/${DOCKER_ARCH}/docker-${DOCKER_VERSION}.tgz \
     && tar zxvf docker.tgz \
     && rm -rf docker.tgz \
-    && docker/docker /usr/bin/docker \
+    && cp docker/docker /usr/bin/docker \
     && rn -rf docker \
     && mkdir -p /usr/local/lib/docker/cli-plugins \
     && curl -fLo /usr/local/lib/docker/cli-plugins/docker-buildx \
