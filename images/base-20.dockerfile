@@ -35,3 +35,5 @@ RUN groupadd docker --gid 123 \
     && echo "Defaults env_keep += \"DEBIAN_FRONTEND\"" >> /etc/sudoers
 
 RUN install -o node -g docker -m 755 docker/* /usr/bin/ && rm -rf docker
+
+USER node 
