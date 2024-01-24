@@ -30,5 +30,4 @@ RUN export RUNNER_ARCH=${TARGETARCH} \
         "https://github.com/docker/buildx/releases/download/v${BUILDX_VERSION}/buildx-v${BUILDX_VERSION}.linux-${TARGETARCH}" \
     && chmod +x /usr/local/lib/docker/cli-plugins/docker-buildx \
     && groupadd docker --gid 123 \
-    && usermod -aG docker root \ 
-    && usermod -aG docker node
+    && usermod -aG docker 101
